@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div>
+        <h1>{{ article.title }}</h1>
+        <p>{{ article.content }}</p>
+    </div>
+    <div>
+        {% for comment in comments %} {# read 를 위한 부분 #}
+            <div>
+                {{ comment.author }}: {{ comment.comment }}
+                {% if user == comment.author %} {# delete 를 위한 부분 #}
+                    <a href="{% url 'delete_comment' article.pk comment.pk %}">X</a>
+                {% endif %}
+            </div>
+        {% endfor %}
+        <form method="POST"> {# create 를 위한 부분 #}
+            {% csrf_token %}
+            <input name="comment">
+            <button type="submit">댓글 달기</button>
+        </form>
+    </div>
+    <div>
+        {% if user == article.author %}
+            <a href="{%  url 'edit' article.pk %}">글 수정하기</a>
+            <a href="{%  url 'delete' article.pk %}">글 삭제하기</a>
+        {% endif %}
+        <a href="{%  url 'index' %}">홈으로 돌아가기</a>
+    </div>
+</body>
+</html>
