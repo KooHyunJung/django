@@ -22,6 +22,10 @@ def new(request):
         return render(request, 'blog/new.html')
 
 
+def nstapi(request):
+    return render(request, 'blog/nstapi.html')
+
+
 @login_required(login_url='signin') # 로그인하지 않을 경우 리다이렉트
 def edit(request, pk):
     article = Article.objects.get(pk=pk)

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        let today = new Date();
+        let hours = ('0' + today.getHours()).slice(-2);
+        let minutes = ('0' + today.getMinutes()).slice(-2);
+        let seconds = ('0' + today.getSeconds()).slice(-2);
+        let timeString = hours + '_' + minutes  + '_' + seconds;
+
+        function kandinsky() {
+            let title = 'kan'+timeString
+            let file = $('#file')[0].files[0]
+            let form_data = new FormData()
+
+            form_data.append("key", title)
+            form_data.append("img", file)
+            $.ajax({
+                type: "POST",
+                url: "http://nst10-dev.ap-northeast-2.elasticbeanstalk.com/api/v1/nsts/",
+                dataType: 'json',
+                data: form_data,
+                cache: false,
+                contentType: false,
+                processData: false,
+                  success: function(response){
+                      console.log(response)
+                  }
+                })
+        }
+        function mosaic() {
+            let title = 'mosaic'+timeString
+            let file = $('#file')[0].files[0]
+            let form_data = new FormData()
+
+            form_data.append("key", title)
+            form_data.append("img", file)
+
+            $.ajax({
+                type: "POST",
+                url: "http://nst10-dev.ap-northeast-2.elasticbeanstalk.com/api/v1/nsts/mosaic",
+                dataType: 'json',
+                data: form_data,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function(response){
+                    console.log(response)
+                }
+            })
+        }
+        function piccasso() {
+            let title = 'piccasso'+timeString
+            let file = $('#file')[0].files[0]
+            let form_data = new FormData()
+
+            form_data.append("key", title)
+            form_data.append("img", file)
+
+            $.ajax({
+                type: "POST",
+                url: "http://nst10-dev.ap-northeast-2.elasticbeanstalk.com/api/v1/nsts/piccasso",
+                dataType: 'json',
+                data: form_data,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function(response){
+                    console.log(response)
+                }
+            })
+        }
+        function monet() {
+            let title = 'monet'+timeString
+            let file = $('#file')[0].files[0]
+            let form_data = new FormData()
+
+            form_data.append("key", title)
+            form_data.append("img", file)
+
+            $.ajax({
+                type: "POST",
+                url: "http://nst10-dev.ap-northeast-2.elasticbeanstalk.com/api/v1/nsts/monet",
+                dataType: 'json',
+                data: form_data,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function(response){
+                    console.log(response)
+                }
+            })
+        }
+    </script>
+</head>
+<body>
+
+    <input type="file" id="file">
+    <img id="image" style="width:200px;height:200px" src="https://storage.googleapis.com/download.tensorflow.org/example_images/Vassily_Kandinsky%2C_1913_-_Composition_7.jpg" onclick="kandinsky()">
+    <img id="image" style="width:200px;height:200px" src="https://www.erinhanson.com/Content/InventoryImages/Erin-Hanson-Aspen-Mosaic-2.jpg" onclick="mosaic()">
+    <img id="image" style="width:200px;height:200px" src="https://www.pablo-ruiz-picasso.net/images/works/1906.jpg" onclick="piccasso()">
+    <img id="image" style="width:200px;height:200px" src="https://images.chosun.com/resizer/CAr96Z5tcKj8q9Cwve8he0QQQmo=/480x436/smart/cloudfront-ap-northeast-1.images.arcpublishing.com/chosun/P7KQVI7M57MMAAM5OJU4LI5BKI.jpg" onclick="monet()">
+    <button onclick="posting()">업로드</button>
+</body>
+</html>
